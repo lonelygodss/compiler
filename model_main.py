@@ -1,6 +1,6 @@
-from compiler.model_compiler.GLU_ffn import create_glu_ffn_model
-from compiler.model_compiler.basic_compiler import Compiler
-import compiler.model_compiler.metadata_proess as dataproc
+from model_compiler.GLU_ffn import create_glu_ffn_model
+from model_compiler.basic_compiler import Compiler
+import model_compiler.metadata_proess as dataproc
 
 
 def main():
@@ -47,33 +47,33 @@ def main():
     # if len(compiled_model.subfunctions) > 50:
     #     print(f"  ... and {len(compiled_model.subfunctions) - 50} more")
 
-    # Visualize the compiled model with shorter labels
+    # # Visualize the compiled model with shorter labels
     dataproc.visualize_compiled_model(compiled_model, "ffn_compiled_model")
     
-    # Alternative layered visualization with shorter labels
-    dataproc.visualize_compiled_model_layered(compiled_model, "ffn_compiled_model_layered")
+    # # Alternative layered visualization with shorter labels
+    # dataproc.visualize_compiled_model_layered(compiled_model, "ffn_compiled_model_layered")
     
-    # Simplified visualization focusing on dataflow
-    dataproc.visualize_compiled_model_simple(compiled_model, "ffn_compiled_model_simple")
+    # # Simplified visualization focusing on dataflow
+    # dataproc.visualize_compiled_model_simple(compiled_model, "ffn_compiled_model_simple")
 
-    # Parse and analyze the compute graph
-    connection_info = dataproc.parse_compute_graph(compiled_model)    
-    # Save the compute graph
-    dataproc.save_compute_graph(connection_info, "ffn_compute_graph.json")
+    # # Parse and analyze the compute graph
+    # connection_info = dataproc.parse_compute_graph(compiled_model)    
+    # # Save the compute graph
+    # dataproc.save_compute_graph(connection_info, "ffn_compute_graph.json")
     
-    # Visualize the compute graph
-    dataproc.visualize_compute_graph_graphviz(connection_info, "ffn_compute_graph_graphviz")
+    # # Visualize the compute graph
+    # dataproc.visualize_compute_graph_graphviz(connection_info, "ffn_compute_graph_graphviz")
     
-    # Analyze the compute graph
-    analysis = dataproc.analyze_compute_graph(connection_info)
-    print("\nCompute Graph Analysis:")
-    for key, value in analysis.items():
-        if isinstance(value, dict):
-            print(f"  {key}:")
-            for k, v in value.items():
-                print(f"    {k}: {v}")
-        else:
-            print(f"  {key}: {value}")
+    # # Analyze the compute graph
+    # analysis = dataproc.analyze_compute_graph(connection_info)
+    # print("\nCompute Graph Analysis:")
+    # for key, value in analysis.items():
+    #     if isinstance(value, dict):
+    #         print(f"  {key}:")
+    #         for k, v in value.items():
+    #             print(f"    {k}: {v}")
+    #     else:
+    #         print(f"  {key}: {value}")
 
 if __name__ == "__main__":
     main()
