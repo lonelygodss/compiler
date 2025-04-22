@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import List, Dict, Tuple, Set, Optional, Any
+from typing import List, Dict, Tuple, Set, Optional, Any, Union, Callable
 
 class OperationType(Enum):
     MVM = "MVM"                 # Matrix-vector multiplication
@@ -14,135 +14,179 @@ class OperationType(Enum):
 
 
 class TensorId:
-    """Unique identifier for tensors in the model"""
-    def __init__(self, k: int, m: int, n: int, i: int = None, j: int = None):
-        self.k = k  # parallel function index within an FFN layer
-        self.m = m  # sequence order within an FFN layer
-        self.n = n  # decoder layer index
-        self.i = i  # horizontal index (for division)
-        self.j = j  # vertical index (for division)
+    """Flexible identifier for tensors in the model"""
+    def __init__(self, **kwargs):
+        self.coords = kwargs  # Store all coordinates as a dictionary
+    
+    @classmethod
+    def create(cls, **kwargs):
+        """Factory method to create a TensorId with specific coordinates"""
+        return cls(**kwargs)
+    
+    def with_coords(self, **kwargs):
+        """Create a new TensorId with updated coordinates"""
+        new_coords = self.coords.copy()
+        new_coords.update(kwargs)
+        return TensorId(**new_coords)
+    
+    def get(self, key, default=None):
+        """Get a coordinate value by key"""
+        return self.coords.get(key, default)
     
     def __str__(self):
-        if self.i is not None and self.j is not None:
-            return f"Tensor(i={self.i}, j={self.j}, k={self.k}, m={self.m}, n={self.n})"
-        else:
-            return f"Tensor(k={self.k}, m={self.m}, n={self.n})"
+        coords_str = ", ".join(f"{k}={v}" for k, v in sorted(self.coords.items()))
+        return f"Tensor({coords_str})"
     
     def __eq__(self, other):
         if not isinstance(other, TensorId):
             return False
-        if self.i is None and self.j is None:
-            return (self.k == other.k and 
-                    self.m == other.m and self.n == other.n)
-        return (self.i == other.i and self.j == other.j and 
-                self.k == other.k and self.m == other.m and self.n == other.n)
+        return self.coords == other.coords
     
     def __hash__(self):
-        if self.i is None and self.j is None:
-            return hash(( self.k, self.m, self.n))
-        return hash((self.i, self.j, self.k, self.m, self.n))
+        return hash(tuple(sorted(self.coords.items())))
+
 
 class TensorWithSize:
     """Represents a instance of a tensor """
-    def __init__(self, tensor_id: TensorId, size_h: int = None, 
-                 size_v: int = None):
+    def __init__(self, tensor_id: TensorId, **size_params):
         self.tensor_id = tensor_id
-        self.size_h = size_h  # horizontal size
-        self.size_v = size_v  # vertical size
+        self.size_params = size_params  # Flexible size parameters
     
-    def __size__(self):
-        slice_info = ""
-        if self.size_h is not None:
-            slice_info = f", size=[{self.size_h},{self.size_v}]"
-        return f"{self.tensor_id}{slice_info}"
+    def __str__(self):
+        size_info = ""
+        if self.size_params:
+            size_info = f", size={self.size_params}"
+        return f"{self.tensor_id}{size_info}"
+
 
 class Function:
-    """High-level function in the FFN layer (before division)"""
-    def __init__(self, k: int, m: int, n: int, op_type: OperationType):
-        self.k = k  # parallel function index
-        self.m = m  # sequence order in FFN
-        self.n = n  # decoder layer index
+    """High-level function in the model (before division)"""
+    def __init__(self, op_type: OperationType, **coords):
         self.op_type = op_type
-        self.shape = None  # For MVM operations: (input_dim, output_dim)
+        self.coords = coords  # Store all coordinates as a dictionary
+        self.shape = None     # For operations with shape requirements
+        self.metadata = {}    # Additional metadata for the function
     
-    def set_shape(self, shape: Tuple[int, int]):
-        """Set the shape for MVM operations (input_dim, output_dim)"""
+    def set_shape(self, shape: Tuple):
+        """Set the shape for operations"""
         self.shape = shape
         
+    def set_metadata(self, key, value):
+        """Set additional metadata"""
+        self.metadata[key] = value
+        
+    def get_metadata(self, key, default=None):
+        """Get metadata value by key"""
+        return self.metadata.get(key, default)
+        
     def __str__(self):
+        coords_str = ", ".join(f"{k}={v}" for k, v in sorted(self.coords.items()))
         shape_info = f", shape={self.shape}" if self.shape else ""
-        return f"Function(k={self.k}, m={self.m}, n={self.n}, op={self.op_type.value}{shape_info})"
-#%%
+        return f"Function({coords_str}, op={self.op_type.value}{shape_info})"
+
+
 class SubFunction:
     """Sub-function after division according to hardware constraints"""
-    def __init__(self, i: int, j: int, k: int, m: int, n: int, op_type: OperationType):
-        self.i = i  # horizontal index
-        self.j = j  # vertical index
-        self.k = k  # parallel function index
-        self.m = m  # sequence order in FFN
-        self.n = n  # decoder layer index
+    def __init__(self, op_type: OperationType, **coords):
         self.op_type = op_type
+        self.coords = coords  # Store all coordinates as a dictionary
         self.input_tensors: List[TensorWithSize] = []
-        self.output_tensor: List[TensorWithSize] = []
-        self.shape = None  # For MVM operations: (submatrix input_dim, submatrix output_dim)
+        self.output_tensors: List[TensorWithSize] = []
+        self.shape = None     # For operations with shape requirements
         self.parent_function = None  # Reference to the parent Function
+        self.metadata = {}    # Additional metadata for the subfunction
         
     def set_parent(self, parent: Function):
         """Set the parent function this subfunction was derived from"""
         self.parent_function = parent
         
-    def set_shape(self, shape: Tuple[int, int]):
-        """Set the shape for MVM operations (input_dim, output_dim) of the submatrix"""
+    def set_shape(self, shape: Tuple):
+        """Set the shape for operations"""
         self.shape = shape
         
-    def add_input_tensor(self, tensor_id: TensorId, size_h=None, size_v=None):
-        """Add an input tensor dependency"""
-        self.input_tensors.append(TensorWithSize(tensor_id, size_h, size_v))
+    def set_metadata(self, key, value):
+        """Set additional metadata"""
+        self.metadata[key] = value
         
-    def add_output_tensor(self, tensor_id: TensorId, size_h=None, size_v=None):
+    def get_metadata(self, key, default=None):
+        """Get metadata value by key"""
+        return self.metadata.get(key, default)
+        
+    def add_input_tensor(self, tensor_id: TensorId, **size_params):
+        """Add an input tensor dependency"""
+        self.input_tensors.append(TensorWithSize(tensor_id, **size_params))
+        
+    def add_output_tensor(self, tensor_id: TensorId, **size_params):
         """Register output tensor with the function coordinates"""
-        self.output_tensor.append(TensorWithSize(tensor_id, size_h, size_v))
+        self.output_tensors.append(TensorWithSize(tensor_id, **size_params))
         
     def __str__(self):
+        coords_str = ", ".join(f"{k}={v}" for k, v in sorted(self.coords.items()))
         inputs = ', '.join(str(ts.tensor_id) for ts in self.input_tensors)
-        output = ', '.join(str(ts.tensor_id) for ts in self.output_tensor)
+        outputs = ', '.join(str(ts.tensor_id) for ts in self.output_tensors)
         shape_info = f", shape={self.shape}" if self.shape else ""
-        return f"SubFunction(i={self.i}, j={self.j}, k={self.k}, m={self.m}, n={self.n}, op={self.op_type.value}, inputs=[{inputs}], output={output}{shape_info})"
+        return f"SubFunction({coords_str}, op={self.op_type.value}, inputs=[{inputs}], outputs=[{outputs}]{shape_info})"
+
 
 class Model:
     """Holds the complete model description"""
     def __init__(self):
         self.functions: List[Function] = []
+        self.metadata = {}    # Additional metadata for the model
         
     def add_function(self, function: Function):
         """Add a function to the model"""
         self.functions.append(function)
         
-    def get_function(self, k: int, m: int, n: int) -> Optional[Function]:
-        """Get a function by its coordinates"""
+    def get_functions_by_coords(self, **coords):
+        """Get functions matching specific coordinates"""
+        results = []
         for func in self.functions:
-            if func.k == k and func.m == m and func.n == n:
-                return func
-        return None
+            match = True
+            for key, value in coords.items():
+                if func.coords.get(key) != value:
+                    match = False
+                    break
+            if match:
+                results.append(func)
+        return results
+    
+    def set_metadata(self, key, value):
+        """Set additional metadata"""
+        self.metadata[key] = value
+        
+    def get_metadata(self, key, default=None):
+        """Get metadata value by key"""
+        return self.metadata.get(key, default)
     
     def __str__(self):
         return '\n'.join(str(func) for func in self.functions)
+
 
 class CompiledModel:
     """Holds the divided model with subfunctions"""
     def __init__(self):
         self.subfunctions: List[SubFunction] = []
         self.dependency_graph: Dict[TensorId, List[SubFunction]] = {}
+        self.metadata = {}    # Additional metadata for the compiled model
         
     def add_subfunction(self, subfunction: SubFunction):
         """Add a subfunction to the compiled model"""
         self.subfunctions.append(subfunction)
         
-        # # Update dependency graph
-        # if subfunction.output_tensor:
-        #     if subfunction.output_tensor.tensor_id not in self.dependency_graph:
-        #         self.dependency_graph[subfunction.output_tensor.tensor_id] = []
-    
+    def get_subfunctions_by_coords(self, **coords):
+        """Get subfunctions matching specific coordinates"""
+        results = []
+        for subfunc in self.subfunctions:
+            match = True
+            for key, value in coords.items():
+                if subfunc.coords.get(key) != value:
+                    match = False
+                    break
+            if match:
+                results.append(subfunc)
+        return results
+        
     def build_dependency_graph(self):
         """Build a graph showing which subfunctions depend on which tensors"""
         # Reset the graph
@@ -150,16 +194,23 @@ class CompiledModel:
         
         # Add all output tensors to the graph
         for subfunc in self.subfunctions:
-            if subfunc.output_tensor:
-                for output_tensor in subfunc.output_tensor:
-                    if output_tensor.tensor_id not in self.dependency_graph:
-                        self.dependency_graph[output_tensor.tensor_id] = []
+            for output_tensor in subfunc.output_tensors:
+                if output_tensor.tensor_id not in self.dependency_graph:
+                    self.dependency_graph[output_tensor.tensor_id] = []
         
         # For each subfunction, add its dependencies
         for subfunc in self.subfunctions:
             for input_tensor in subfunc.input_tensors:
                 if input_tensor.tensor_id in self.dependency_graph:
                     self.dependency_graph[input_tensor.tensor_id].append(subfunc)
+    
+    def set_metadata(self, key, value):
+        """Set additional metadata"""
+        self.metadata[key] = value
+        
+    def get_metadata(self, key, default=None):
+        """Get metadata value by key"""
+        return self.metadata.get(key, default)
         
     def __str__(self):
         return '\n'.join(str(subfunc) for subfunc in self.subfunctions)
