@@ -1,4 +1,4 @@
-import model_compiler as mc
+import compiler.bulkversion.model_compiler_bulkversion as mc
 
 
 def main():

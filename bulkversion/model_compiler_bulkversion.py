@@ -1,4 +1,5 @@
 #%%
+import compiler.model_compiler.utils as utils
 from enum import Enum
 from typing import List, Dict, Tuple, Set, Optional, Any
 
