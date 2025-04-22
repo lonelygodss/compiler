@@ -1,0 +1,454 @@
+// Compute Graph
+digraph {
+	rankdir=TB ratio=fill size="11,8"
+	subgraph cluster_stage_1 {
+		color=lightgray label="Stage 1" style=filled
+		subgraph cluster_ADD_1 {
+			color=lightcoral label=ADD style=filled
+			sf_ADD_i_0_j_1_k_1_m_1_n_1 [label="ADD
+(0,1)
+1×2048" fillcolor=lightcoral shape=box style=filled]
+			sf_ADD_i_0_j_2_k_1_m_1_n_1 [label="ADD
+(0,2)
+1×2048" fillcolor=lightcoral shape=box style=filled]
+			sf_ADD_i_0_j_3_k_1_m_1_n_1 [label="ADD
+(0,3)
+1×2048" fillcolor=lightcoral shape=box style=filled]
+			sf_ADD_i_0_j_4_k_1_m_1_n_1 [label="ADD
+(0,4)
+1×2048" fillcolor=lightcoral shape=box style=filled]
+			sf_ADD_i_0_j_5_k_1_m_1_n_1 [label="ADD
+(0,5)
+1×2048" fillcolor=lightcoral shape=box style=filled]
+			sf_ADD_i_0_j_6_k_1_m_1_n_1 [label="ADD
+(0,6)
+1×768" fillcolor=lightcoral shape=box style=filled]
+			sf_ADD_i_0_j_1_k_2_m_1_n_1 [label="ADD
+(0,1)
+1×2048" fillcolor=lightcoral shape=box style=filled]
+			sf_ADD_i_0_j_2_k_2_m_1_n_1 [label="ADD
+(0,2)
+1×2048" fillcolor=lightcoral shape=box style=filled]
+			sf_ADD_i_0_j_3_k_2_m_1_n_1 [label="ADD
+(0,3)
+1×2048" fillcolor=lightcoral shape=box style=filled]
+			sf_ADD_i_0_j_4_k_2_m_1_n_1 [label="ADD
+(0,4)
+1×2048" fillcolor=lightcoral shape=box style=filled]
+			sf_ADD_i_0_j_5_k_2_m_1_n_1 [label="ADD
+(0,5)
+1×2048" fillcolor=lightcoral shape=box style=filled]
+			sf_ADD_i_0_j_6_k_2_m_1_n_1 [label="ADD
+(0,6)
+1×768" fillcolor=lightcoral shape=box style=filled]
+		}
+		subgraph cluster_CONCAT_1 {
+			color=lightpink label=CONCAT style=filled
+			sf_CONCAT_i_0_j_0_k_1_m_1_n_1 [label="CONCAT
+(0,0)" fillcolor=lightpink shape=box style=filled]
+			sf_CONCAT_i_0_j_0_k_2_m_1_n_1 [label="CONCAT
+(0,0)" fillcolor=lightpink shape=box style=filled]
+		}
+		subgraph cluster_DISTRIBUTE_1 {
+			color=lavender label=DISTRIBUTE style=filled
+			"sf_DISTRIBUTE_i_0_j_-1_k_1_m_1_n_1" [label="DISTRIBUTE
+(0,-1)" fillcolor=lavender shape=box style=filled]
+			"sf_DISTRIBUTE_i_0_j_-1_k_2_m_1_n_1" [label="DISTRIBUTE
+(0,-1)" fillcolor=lavender shape=box style=filled]
+		}
+		subgraph cluster_MVM_1 {
+			color=lightblue label=MVM style=filled
+			sf_MVM_i_1_j_1_k_1_m_1_n_1 [label="MVM
+(1,1)
+2048×2048" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_1_j_2_k_1_m_1_n_1 [label="MVM
+(1,2)
+2048×2048" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_1_j_3_k_1_m_1_n_1 [label="MVM
+(1,3)
+2048×2048" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_1_j_4_k_1_m_1_n_1 [label="MVM
+(1,4)
+2048×2048" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_1_j_5_k_1_m_1_n_1 [label="MVM
+(1,5)
+2048×2048" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_1_j_6_k_1_m_1_n_1 [label="MVM
+(1,6)
+2048×768" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_2_j_1_k_1_m_1_n_1 [label="MVM
+(2,1)
+2048×2048" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_2_j_2_k_1_m_1_n_1 [label="MVM
+(2,2)
+2048×2048" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_2_j_3_k_1_m_1_n_1 [label="MVM
+(2,3)
+2048×2048" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_2_j_4_k_1_m_1_n_1 [label="MVM
+(2,4)
+2048×2048" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_2_j_5_k_1_m_1_n_1 [label="MVM
+(2,5)
+2048×2048" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_2_j_6_k_1_m_1_n_1 [label="MVM
+(2,6)
+2048×768" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_1_j_1_k_2_m_1_n_1 [label="MVM
+(1,1)
+2048×2048" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_1_j_2_k_2_m_1_n_1 [label="MVM
+(1,2)
+2048×2048" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_1_j_3_k_2_m_1_n_1 [label="MVM
+(1,3)
+2048×2048" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_1_j_4_k_2_m_1_n_1 [label="MVM
+(1,4)
+2048×2048" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_1_j_5_k_2_m_1_n_1 [label="MVM
+(1,5)
+2048×2048" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_1_j_6_k_2_m_1_n_1 [label="MVM
+(1,6)
+2048×768" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_2_j_1_k_2_m_1_n_1 [label="MVM
+(2,1)
+2048×2048" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_2_j_2_k_2_m_1_n_1 [label="MVM
+(2,2)
+2048×2048" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_2_j_3_k_2_m_1_n_1 [label="MVM
+(2,3)
+2048×2048" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_2_j_4_k_2_m_1_n_1 [label="MVM
+(2,4)
+2048×2048" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_2_j_5_k_2_m_1_n_1 [label="MVM
+(2,5)
+2048×2048" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_2_j_6_k_2_m_1_n_1 [label="MVM
+(2,6)
+2048×768" fillcolor=lightblue shape=box style=filled]
+		}
+		subgraph cluster_PASS_1 {
+			color=white label=PASS style=filled
+			"sf_PASS_i_-1_j_0_k_1_m_1_n_1" [label="PASS
+(-1,0)" fillcolor=white shape=box style=filled]
+			"sf_PASS_i_-1_j_0_k_2_m_1_n_1" [label="PASS
+(-1,0)" fillcolor=white shape=box style=filled]
+		}
+	}
+	subgraph cluster_stage_2 {
+		color=lightgray label="Stage 2" style=filled
+		subgraph cluster_ACTIVATION_2 {
+			color=lightgreen label=ACTIVATION style=filled
+			sf_ACTIVATION_i_1_j_1_k_2_m_2_n_1 [label="ACTIVATION
+(1,1)
+1×2048" fillcolor=lightgreen shape=box style=filled]
+			sf_ACTIVATION_i_1_j_2_k_2_m_2_n_1 [label="ACTIVATION
+(1,2)
+1×2048" fillcolor=lightgreen shape=box style=filled]
+			sf_ACTIVATION_i_1_j_3_k_2_m_2_n_1 [label="ACTIVATION
+(1,3)
+1×2048" fillcolor=lightgreen shape=box style=filled]
+			sf_ACTIVATION_i_1_j_4_k_2_m_2_n_1 [label="ACTIVATION
+(1,4)
+1×2048" fillcolor=lightgreen shape=box style=filled]
+			sf_ACTIVATION_i_1_j_5_k_2_m_2_n_1 [label="ACTIVATION
+(1,5)
+1×2048" fillcolor=lightgreen shape=box style=filled]
+			sf_ACTIVATION_i_1_j_6_k_2_m_2_n_1 [label="ACTIVATION
+(1,6)
+1×768" fillcolor=lightgreen shape=box style=filled]
+		}
+		subgraph cluster_CONCAT_2 {
+			color=lightpink label=CONCAT style=filled
+			sf_CONCAT_i_0_j_0_k_1_m_2_n_1 [label="CONCAT
+(0,0)" fillcolor=lightpink shape=box style=filled]
+			sf_CONCAT_i_0_j_0_k_2_m_2_n_1 [label="CONCAT
+(0,0)" fillcolor=lightpink shape=box style=filled]
+		}
+		subgraph cluster_DISTRIBUTE_2 {
+			color=lavender label=DISTRIBUTE style=filled
+			"sf_DISTRIBUTE_i_0_j_-1_k_1_m_2_n_1" [label="DISTRIBUTE
+(0,-1)" fillcolor=lavender shape=box style=filled]
+			"sf_DISTRIBUTE_i_0_j_-1_k_2_m_2_n_1" [label="DISTRIBUTE
+(0,-1)" fillcolor=lavender shape=box style=filled]
+		}
+		subgraph cluster_PASS_2 {
+			color=white label=PASS style=filled
+			"sf_PASS_i_-1_j_0_k_1_m_2_n_1" [label="PASS
+(-1,0)" fillcolor=white shape=box style=filled]
+			"sf_PASS_i_-1_j_0_k_2_m_2_n_1" [label="PASS
+(-1,0)" fillcolor=white shape=box style=filled]
+		}
+		subgraph cluster_TRIVIAL_COPY_2 {
+			color=lightgray label=TRIVIAL_COPY style=filled
+			sf_TRIVIAL_COPY_i_1_j_1_k_1_m_2_n_1 [label="TRIVIAL_COPY
+(1,1)
+1×2048" fillcolor=lightgray shape=box style=filled]
+			sf_TRIVIAL_COPY_i_1_j_2_k_1_m_2_n_1 [label="TRIVIAL_COPY
+(1,2)
+1×2048" fillcolor=lightgray shape=box style=filled]
+			sf_TRIVIAL_COPY_i_1_j_3_k_1_m_2_n_1 [label="TRIVIAL_COPY
+(1,3)
+1×2048" fillcolor=lightgray shape=box style=filled]
+			sf_TRIVIAL_COPY_i_1_j_4_k_1_m_2_n_1 [label="TRIVIAL_COPY
+(1,4)
+1×2048" fillcolor=lightgray shape=box style=filled]
+			sf_TRIVIAL_COPY_i_1_j_5_k_1_m_2_n_1 [label="TRIVIAL_COPY
+(1,5)
+1×2048" fillcolor=lightgray shape=box style=filled]
+			sf_TRIVIAL_COPY_i_1_j_6_k_1_m_2_n_1 [label="TRIVIAL_COPY
+(1,6)
+1×768" fillcolor=lightgray shape=box style=filled]
+		}
+	}
+	subgraph cluster_stage_3 {
+		color=lightgray label="Stage 3" style=filled
+		subgraph cluster_CONCAT_3 {
+			color=lightpink label=CONCAT style=filled
+			sf_CONCAT_i_0_j_0_k_1_m_3_n_1 [label="CONCAT
+(0,0)" fillcolor=lightpink shape=box style=filled]
+		}
+		subgraph cluster_DISTRIBUTE_3 {
+			color=lavender label=DISTRIBUTE style=filled
+			"sf_DISTRIBUTE_i_0_j_-1_k_1_m_3_n_1" [label="DISTRIBUTE
+(0,-1)" fillcolor=lavender shape=box style=filled]
+			"sf_DISTRIBUTE_i_0_j_-1_k_2_m_3_n_1" [label="DISTRIBUTE
+(0,-1)" fillcolor=lavender shape=box style=filled]
+		}
+		subgraph cluster_GLU_3 {
+			color=lightyellow label=GLU style=filled
+			sf_GLU_i_1_j_1_k_1_m_3_n_1 [label="GLU
+(1,1)
+1×2048" fillcolor=lightyellow shape=box style=filled]
+			sf_GLU_i_1_j_2_k_1_m_3_n_1 [label="GLU
+(1,2)
+1×2048" fillcolor=lightyellow shape=box style=filled]
+			sf_GLU_i_1_j_3_k_1_m_3_n_1 [label="GLU
+(1,3)
+1×2048" fillcolor=lightyellow shape=box style=filled]
+			sf_GLU_i_1_j_4_k_1_m_3_n_1 [label="GLU
+(1,4)
+1×2048" fillcolor=lightyellow shape=box style=filled]
+			sf_GLU_i_1_j_5_k_1_m_3_n_1 [label="GLU
+(1,5)
+1×2048" fillcolor=lightyellow shape=box style=filled]
+			sf_GLU_i_1_j_6_k_1_m_3_n_1 [label="GLU
+(1,6)
+1×768" fillcolor=lightyellow shape=box style=filled]
+		}
+		subgraph cluster_PASS_3 {
+			color=white label=PASS style=filled
+			"sf_PASS_i_-1_j_0_k_1_m_3_n_1" [label="PASS
+(-1,0)" fillcolor=white shape=box style=filled]
+		}
+	}
+	subgraph cluster_stage_4 {
+		color=lightgray label="Stage 4" style=filled
+		subgraph cluster_ADD_4 {
+			color=lightcoral label=ADD style=filled
+			sf_ADD_i_0_j_1_k_1_m_4_n_1 [label="ADD
+(0,1)
+1×2048" fillcolor=lightcoral shape=box style=filled]
+			sf_ADD_i_0_j_2_k_1_m_4_n_1 [label="ADD
+(0,2)
+1×2048" fillcolor=lightcoral shape=box style=filled]
+		}
+		subgraph cluster_CONCAT_4 {
+			color=lightpink label=CONCAT style=filled
+			sf_CONCAT_i_0_j_0_k_1_m_4_n_1 [label="CONCAT
+(0,0)" fillcolor=lightpink shape=box style=filled]
+		}
+		subgraph cluster_DISTRIBUTE_4 {
+			color=lavender label=DISTRIBUTE style=filled
+			"sf_DISTRIBUTE_i_0_j_-1_k_1_m_4_n_1" [label="DISTRIBUTE
+(0,-1)" fillcolor=lavender shape=box style=filled]
+		}
+		subgraph cluster_MVM_4 {
+			color=lightblue label=MVM style=filled
+			sf_MVM_i_1_j_1_k_1_m_4_n_1 [label="MVM
+(1,1)
+2048×2048" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_1_j_2_k_1_m_4_n_1 [label="MVM
+(1,2)
+2048×2048" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_2_j_1_k_1_m_4_n_1 [label="MVM
+(2,1)
+2048×2048" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_2_j_2_k_1_m_4_n_1 [label="MVM
+(2,2)
+2048×2048" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_3_j_1_k_1_m_4_n_1 [label="MVM
+(3,1)
+2048×2048" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_3_j_2_k_1_m_4_n_1 [label="MVM
+(3,2)
+2048×2048" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_4_j_1_k_1_m_4_n_1 [label="MVM
+(4,1)
+2048×2048" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_4_j_2_k_1_m_4_n_1 [label="MVM
+(4,2)
+2048×2048" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_5_j_1_k_1_m_4_n_1 [label="MVM
+(5,1)
+2048×2048" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_5_j_2_k_1_m_4_n_1 [label="MVM
+(5,2)
+2048×2048" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_6_j_1_k_1_m_4_n_1 [label="MVM
+(6,1)
+768×2048" fillcolor=lightblue shape=box style=filled]
+			sf_MVM_i_6_j_2_k_1_m_4_n_1 [label="MVM
+(6,2)
+768×2048" fillcolor=lightblue shape=box style=filled]
+		}
+		subgraph cluster_PASS_4 {
+			color=white label=PASS style=filled
+			"sf_PASS_i_-1_j_0_k_1_m_4_n_1" [label="PASS
+(-1,0)" fillcolor=white shape=box style=filled]
+		}
+	}
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_1_n_1" -> sf_MVM_i_1_j_1_k_1_m_1_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_1_n_1" -> sf_MVM_i_1_j_2_k_1_m_1_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_1_n_1" -> sf_MVM_i_1_j_3_k_1_m_1_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_1_n_1" -> sf_MVM_i_1_j_4_k_1_m_1_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_1_n_1" -> sf_MVM_i_1_j_5_k_1_m_1_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_1_n_1" -> sf_MVM_i_1_j_6_k_1_m_1_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_1_n_1" -> sf_MVM_i_2_j_1_k_1_m_1_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_1_n_1" -> sf_MVM_i_2_j_2_k_1_m_1_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_1_n_1" -> sf_MVM_i_2_j_3_k_1_m_1_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_1_n_1" -> sf_MVM_i_2_j_4_k_1_m_1_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_1_n_1" -> sf_MVM_i_2_j_5_k_1_m_1_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_1_n_1" -> sf_MVM_i_2_j_6_k_1_m_1_n_1 [label="2048×1"]
+	sf_MVM_i_1_j_1_k_1_m_1_n_1 -> sf_ADD_i_0_j_1_k_1_m_1_n_1 [label="2048×1"]
+	sf_MVM_i_2_j_1_k_1_m_1_n_1 -> sf_ADD_i_0_j_1_k_1_m_1_n_1 [label="2048×1"]
+	sf_MVM_i_1_j_2_k_1_m_1_n_1 -> sf_ADD_i_0_j_2_k_1_m_1_n_1 [label="2048×1"]
+	sf_MVM_i_2_j_2_k_1_m_1_n_1 -> sf_ADD_i_0_j_2_k_1_m_1_n_1 [label="2048×1"]
+	sf_MVM_i_1_j_3_k_1_m_1_n_1 -> sf_ADD_i_0_j_3_k_1_m_1_n_1 [label="2048×1"]
+	sf_MVM_i_2_j_3_k_1_m_1_n_1 -> sf_ADD_i_0_j_3_k_1_m_1_n_1 [label="2048×1"]
+	sf_MVM_i_1_j_4_k_1_m_1_n_1 -> sf_ADD_i_0_j_4_k_1_m_1_n_1 [label="2048×1"]
+	sf_MVM_i_2_j_4_k_1_m_1_n_1 -> sf_ADD_i_0_j_4_k_1_m_1_n_1 [label="2048×1"]
+	sf_MVM_i_1_j_5_k_1_m_1_n_1 -> sf_ADD_i_0_j_5_k_1_m_1_n_1 [label="2048×1"]
+	sf_MVM_i_2_j_5_k_1_m_1_n_1 -> sf_ADD_i_0_j_5_k_1_m_1_n_1 [label="2048×1"]
+	sf_MVM_i_1_j_6_k_1_m_1_n_1 -> sf_ADD_i_0_j_6_k_1_m_1_n_1 [label="768×1"]
+	sf_MVM_i_2_j_6_k_1_m_1_n_1 -> sf_ADD_i_0_j_6_k_1_m_1_n_1 [label="768×1"]
+	sf_ADD_i_0_j_1_k_1_m_1_n_1 -> sf_CONCAT_i_0_j_0_k_1_m_1_n_1 [label="2048×1"]
+	sf_ADD_i_0_j_2_k_1_m_1_n_1 -> sf_CONCAT_i_0_j_0_k_1_m_1_n_1 [label="2048×1"]
+	sf_ADD_i_0_j_3_k_1_m_1_n_1 -> sf_CONCAT_i_0_j_0_k_1_m_1_n_1 [label="2048×1"]
+	sf_ADD_i_0_j_4_k_1_m_1_n_1 -> sf_CONCAT_i_0_j_0_k_1_m_1_n_1 [label="2048×1"]
+	sf_ADD_i_0_j_5_k_1_m_1_n_1 -> sf_CONCAT_i_0_j_0_k_1_m_1_n_1 [label="2048×1"]
+	sf_ADD_i_0_j_6_k_1_m_1_n_1 -> sf_CONCAT_i_0_j_0_k_1_m_1_n_1 [label="768×1"]
+	sf_CONCAT_i_0_j_0_k_1_m_1_n_1 -> "sf_PASS_i_-1_j_0_k_1_m_1_n_1" [label="11008×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_2_m_1_n_1" -> sf_MVM_i_1_j_1_k_2_m_1_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_2_m_1_n_1" -> sf_MVM_i_1_j_2_k_2_m_1_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_2_m_1_n_1" -> sf_MVM_i_1_j_3_k_2_m_1_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_2_m_1_n_1" -> sf_MVM_i_1_j_4_k_2_m_1_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_2_m_1_n_1" -> sf_MVM_i_1_j_5_k_2_m_1_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_2_m_1_n_1" -> sf_MVM_i_1_j_6_k_2_m_1_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_2_m_1_n_1" -> sf_MVM_i_2_j_1_k_2_m_1_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_2_m_1_n_1" -> sf_MVM_i_2_j_2_k_2_m_1_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_2_m_1_n_1" -> sf_MVM_i_2_j_3_k_2_m_1_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_2_m_1_n_1" -> sf_MVM_i_2_j_4_k_2_m_1_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_2_m_1_n_1" -> sf_MVM_i_2_j_5_k_2_m_1_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_2_m_1_n_1" -> sf_MVM_i_2_j_6_k_2_m_1_n_1 [label="2048×1"]
+	sf_MVM_i_1_j_1_k_2_m_1_n_1 -> sf_ADD_i_0_j_1_k_2_m_1_n_1 [label="2048×1"]
+	sf_MVM_i_2_j_1_k_2_m_1_n_1 -> sf_ADD_i_0_j_1_k_2_m_1_n_1 [label="2048×1"]
+	sf_MVM_i_1_j_2_k_2_m_1_n_1 -> sf_ADD_i_0_j_2_k_2_m_1_n_1 [label="2048×1"]
+	sf_MVM_i_2_j_2_k_2_m_1_n_1 -> sf_ADD_i_0_j_2_k_2_m_1_n_1 [label="2048×1"]
+	sf_MVM_i_1_j_3_k_2_m_1_n_1 -> sf_ADD_i_0_j_3_k_2_m_1_n_1 [label="2048×1"]
+	sf_MVM_i_2_j_3_k_2_m_1_n_1 -> sf_ADD_i_0_j_3_k_2_m_1_n_1 [label="2048×1"]
+	sf_MVM_i_1_j_4_k_2_m_1_n_1 -> sf_ADD_i_0_j_4_k_2_m_1_n_1 [label="2048×1"]
+	sf_MVM_i_2_j_4_k_2_m_1_n_1 -> sf_ADD_i_0_j_4_k_2_m_1_n_1 [label="2048×1"]
+	sf_MVM_i_1_j_5_k_2_m_1_n_1 -> sf_ADD_i_0_j_5_k_2_m_1_n_1 [label="2048×1"]
+	sf_MVM_i_2_j_5_k_2_m_1_n_1 -> sf_ADD_i_0_j_5_k_2_m_1_n_1 [label="2048×1"]
+	sf_MVM_i_1_j_6_k_2_m_1_n_1 -> sf_ADD_i_0_j_6_k_2_m_1_n_1 [label="768×1"]
+	sf_MVM_i_2_j_6_k_2_m_1_n_1 -> sf_ADD_i_0_j_6_k_2_m_1_n_1 [label="768×1"]
+	sf_ADD_i_0_j_1_k_2_m_1_n_1 -> sf_CONCAT_i_0_j_0_k_2_m_1_n_1 [label="2048×1"]
+	sf_ADD_i_0_j_2_k_2_m_1_n_1 -> sf_CONCAT_i_0_j_0_k_2_m_1_n_1 [label="2048×1"]
+	sf_ADD_i_0_j_3_k_2_m_1_n_1 -> sf_CONCAT_i_0_j_0_k_2_m_1_n_1 [label="2048×1"]
+	sf_ADD_i_0_j_4_k_2_m_1_n_1 -> sf_CONCAT_i_0_j_0_k_2_m_1_n_1 [label="2048×1"]
+	sf_ADD_i_0_j_5_k_2_m_1_n_1 -> sf_CONCAT_i_0_j_0_k_2_m_1_n_1 [label="2048×1"]
+	sf_ADD_i_0_j_6_k_2_m_1_n_1 -> sf_CONCAT_i_0_j_0_k_2_m_1_n_1 [label="768×1"]
+	sf_CONCAT_i_0_j_0_k_2_m_1_n_1 -> "sf_PASS_i_-1_j_0_k_2_m_1_n_1" [label="11008×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_2_n_1" -> sf_TRIVIAL_COPY_i_1_j_1_k_1_m_2_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_2_n_1" -> sf_TRIVIAL_COPY_i_1_j_2_k_1_m_2_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_2_n_1" -> sf_TRIVIAL_COPY_i_1_j_3_k_1_m_2_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_2_n_1" -> sf_TRIVIAL_COPY_i_1_j_4_k_1_m_2_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_2_n_1" -> sf_TRIVIAL_COPY_i_1_j_5_k_1_m_2_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_2_n_1" -> sf_TRIVIAL_COPY_i_1_j_6_k_1_m_2_n_1 [label="768×1"]
+	"sf_PASS_i_-1_j_0_k_1_m_1_n_1" -> "sf_DISTRIBUTE_i_0_j_-1_k_1_m_2_n_1" [label="11008×1"]
+	sf_TRIVIAL_COPY_i_1_j_1_k_1_m_2_n_1 -> sf_CONCAT_i_0_j_0_k_1_m_2_n_1 [label="2048×1"]
+	sf_TRIVIAL_COPY_i_1_j_2_k_1_m_2_n_1 -> sf_CONCAT_i_0_j_0_k_1_m_2_n_1 [label="2048×1"]
+	sf_TRIVIAL_COPY_i_1_j_3_k_1_m_2_n_1 -> sf_CONCAT_i_0_j_0_k_1_m_2_n_1 [label="2048×1"]
+	sf_TRIVIAL_COPY_i_1_j_4_k_1_m_2_n_1 -> sf_CONCAT_i_0_j_0_k_1_m_2_n_1 [label="2048×1"]
+	sf_TRIVIAL_COPY_i_1_j_5_k_1_m_2_n_1 -> sf_CONCAT_i_0_j_0_k_1_m_2_n_1 [label="2048×1"]
+	sf_TRIVIAL_COPY_i_1_j_6_k_1_m_2_n_1 -> sf_CONCAT_i_0_j_0_k_1_m_2_n_1 [label="768×1"]
+	sf_CONCAT_i_0_j_0_k_1_m_2_n_1 -> "sf_PASS_i_-1_j_0_k_1_m_2_n_1" [label="11008×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_2_m_2_n_1" -> sf_ACTIVATION_i_1_j_1_k_2_m_2_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_2_m_2_n_1" -> sf_ACTIVATION_i_1_j_2_k_2_m_2_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_2_m_2_n_1" -> sf_ACTIVATION_i_1_j_3_k_2_m_2_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_2_m_2_n_1" -> sf_ACTIVATION_i_1_j_4_k_2_m_2_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_2_m_2_n_1" -> sf_ACTIVATION_i_1_j_5_k_2_m_2_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_2_m_2_n_1" -> sf_ACTIVATION_i_1_j_6_k_2_m_2_n_1 [label="768×1"]
+	"sf_PASS_i_-1_j_0_k_2_m_1_n_1" -> "sf_DISTRIBUTE_i_0_j_-1_k_2_m_2_n_1" [label="11008×1"]
+	sf_ACTIVATION_i_1_j_1_k_2_m_2_n_1 -> sf_CONCAT_i_0_j_0_k_2_m_2_n_1 [label="2048×1"]
+	sf_ACTIVATION_i_1_j_2_k_2_m_2_n_1 -> sf_CONCAT_i_0_j_0_k_2_m_2_n_1 [label="2048×1"]
+	sf_ACTIVATION_i_1_j_3_k_2_m_2_n_1 -> sf_CONCAT_i_0_j_0_k_2_m_2_n_1 [label="2048×1"]
+	sf_ACTIVATION_i_1_j_4_k_2_m_2_n_1 -> sf_CONCAT_i_0_j_0_k_2_m_2_n_1 [label="2048×1"]
+	sf_ACTIVATION_i_1_j_5_k_2_m_2_n_1 -> sf_CONCAT_i_0_j_0_k_2_m_2_n_1 [label="2048×1"]
+	sf_ACTIVATION_i_1_j_6_k_2_m_2_n_1 -> sf_CONCAT_i_0_j_0_k_2_m_2_n_1 [label="768×1"]
+	sf_CONCAT_i_0_j_0_k_2_m_2_n_1 -> "sf_PASS_i_-1_j_0_k_2_m_2_n_1" [label="11008×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_3_n_1" -> sf_GLU_i_1_j_1_k_1_m_3_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_2_m_3_n_1" -> sf_GLU_i_1_j_1_k_1_m_3_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_3_n_1" -> sf_GLU_i_1_j_2_k_1_m_3_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_2_m_3_n_1" -> sf_GLU_i_1_j_2_k_1_m_3_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_3_n_1" -> sf_GLU_i_1_j_3_k_1_m_3_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_2_m_3_n_1" -> sf_GLU_i_1_j_3_k_1_m_3_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_3_n_1" -> sf_GLU_i_1_j_4_k_1_m_3_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_2_m_3_n_1" -> sf_GLU_i_1_j_4_k_1_m_3_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_3_n_1" -> sf_GLU_i_1_j_5_k_1_m_3_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_2_m_3_n_1" -> sf_GLU_i_1_j_5_k_1_m_3_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_3_n_1" -> sf_GLU_i_1_j_6_k_1_m_3_n_1 [label="768×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_2_m_3_n_1" -> sf_GLU_i_1_j_6_k_1_m_3_n_1 [label="768×1"]
+	"sf_PASS_i_-1_j_0_k_1_m_2_n_1" -> "sf_DISTRIBUTE_i_0_j_-1_k_1_m_3_n_1" [label="11008×1"]
+	"sf_PASS_i_-1_j_0_k_2_m_2_n_1" -> "sf_DISTRIBUTE_i_0_j_-1_k_2_m_3_n_1" [label="11008×1"]
+	sf_GLU_i_1_j_1_k_1_m_3_n_1 -> sf_CONCAT_i_0_j_0_k_1_m_3_n_1 [label="2048×1"]
+	sf_GLU_i_1_j_2_k_1_m_3_n_1 -> sf_CONCAT_i_0_j_0_k_1_m_3_n_1 [label="2048×1"]
+	sf_GLU_i_1_j_3_k_1_m_3_n_1 -> sf_CONCAT_i_0_j_0_k_1_m_3_n_1 [label="2048×1"]
+	sf_GLU_i_1_j_4_k_1_m_3_n_1 -> sf_CONCAT_i_0_j_0_k_1_m_3_n_1 [label="2048×1"]
+	sf_GLU_i_1_j_5_k_1_m_3_n_1 -> sf_CONCAT_i_0_j_0_k_1_m_3_n_1 [label="2048×1"]
+	sf_GLU_i_1_j_6_k_1_m_3_n_1 -> sf_CONCAT_i_0_j_0_k_1_m_3_n_1 [label="768×1"]
+	sf_CONCAT_i_0_j_0_k_1_m_3_n_1 -> "sf_PASS_i_-1_j_0_k_1_m_3_n_1" [label="11008×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_4_n_1" -> sf_MVM_i_1_j_1_k_1_m_4_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_4_n_1" -> sf_MVM_i_1_j_2_k_1_m_4_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_4_n_1" -> sf_MVM_i_2_j_1_k_1_m_4_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_4_n_1" -> sf_MVM_i_2_j_2_k_1_m_4_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_4_n_1" -> sf_MVM_i_3_j_1_k_1_m_4_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_4_n_1" -> sf_MVM_i_3_j_2_k_1_m_4_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_4_n_1" -> sf_MVM_i_4_j_1_k_1_m_4_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_4_n_1" -> sf_MVM_i_4_j_2_k_1_m_4_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_4_n_1" -> sf_MVM_i_5_j_1_k_1_m_4_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_4_n_1" -> sf_MVM_i_5_j_2_k_1_m_4_n_1 [label="2048×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_4_n_1" -> sf_MVM_i_6_j_1_k_1_m_4_n_1 [label="768×1"]
+	"sf_DISTRIBUTE_i_0_j_-1_k_1_m_4_n_1" -> sf_MVM_i_6_j_2_k_1_m_4_n_1 [label="768×1"]
+	"sf_PASS_i_-1_j_0_k_1_m_3_n_1" -> "sf_DISTRIBUTE_i_0_j_-1_k_1_m_4_n_1" [label="11008×1"]
+	sf_MVM_i_1_j_1_k_1_m_4_n_1 -> sf_ADD_i_0_j_1_k_1_m_4_n_1 [label="2048×1"]
+	sf_MVM_i_2_j_1_k_1_m_4_n_1 -> sf_ADD_i_0_j_1_k_1_m_4_n_1 [label="2048×1"]
+	sf_MVM_i_3_j_1_k_1_m_4_n_1 -> sf_ADD_i_0_j_1_k_1_m_4_n_1 [label="2048×1"]
+	sf_MVM_i_4_j_1_k_1_m_4_n_1 -> sf_ADD_i_0_j_1_k_1_m_4_n_1 [label="2048×1"]
+	sf_MVM_i_5_j_1_k_1_m_4_n_1 -> sf_ADD_i_0_j_1_k_1_m_4_n_1 [label="2048×1"]
+	sf_MVM_i_6_j_1_k_1_m_4_n_1 -> sf_ADD_i_0_j_1_k_1_m_4_n_1 [label="2048×1"]
+	sf_MVM_i_1_j_2_k_1_m_4_n_1 -> sf_ADD_i_0_j_2_k_1_m_4_n_1 [label="2048×1"]
+	sf_MVM_i_2_j_2_k_1_m_4_n_1 -> sf_ADD_i_0_j_2_k_1_m_4_n_1 [label="2048×1"]
+	sf_MVM_i_3_j_2_k_1_m_4_n_1 -> sf_ADD_i_0_j_2_k_1_m_4_n_1 [label="2048×1"]
+	sf_MVM_i_4_j_2_k_1_m_4_n_1 -> sf_ADD_i_0_j_2_k_1_m_4_n_1 [label="2048×1"]
+	sf_MVM_i_5_j_2_k_1_m_4_n_1 -> sf_ADD_i_0_j_2_k_1_m_4_n_1 [label="2048×1"]
+	sf_MVM_i_6_j_2_k_1_m_4_n_1 -> sf_ADD_i_0_j_2_k_1_m_4_n_1 [label="2048×1"]
+	sf_ADD_i_0_j_1_k_1_m_4_n_1 -> sf_CONCAT_i_0_j_0_k_1_m_4_n_1 [label="2048×1"]
+	sf_ADD_i_0_j_2_k_1_m_4_n_1 -> sf_CONCAT_i_0_j_0_k_1_m_4_n_1 [label="2048×1"]
+	sf_CONCAT_i_0_j_0_k_1_m_4_n_1 -> "sf_PASS_i_-1_j_0_k_1_m_4_n_1" [label="4096×1"]
+}
